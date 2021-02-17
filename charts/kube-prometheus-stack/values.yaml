@@ -108,6 +108,11 @@ global:
   imagePullSecrets: []
   # - name: "image-pull-secret"
 
+  ingress:
+    ## Add the same set of annotations to all ingress objects.
+    ##
+    annotations: {}
+
 ## Configuration for alertmanager
 ## ref: https://prometheus.io/docs/alerting/alertmanager/
 ##

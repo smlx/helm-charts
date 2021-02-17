@@ -10,9 +10,14 @@ apiVersion: extensions/v1beta1
 {{ end -}}
 kind: Ingress
 metadata:
-{{- if .Values.prometheus.ingress.annotations }}
+{{- if or (.Values.prometheus.ingress.annotations .Values.global.ingress.annotations) }}
   annotations:
-{{ toYaml .Values.prometheus.ingress.annotations | indent 4 }}
+  {{- with .Values.global.ingress.annotations }}
+    {{- toYaml | nindent 4 }}
+  {{- end }}
+  {{- with .Values.prometheus.ingress.annotations }}
+    {{- toYaml | nindent 4 }}
+  {{- end }}
 {{- end }}
   name: {{ $serviceName }}
   namespace: {{ template "kube-prometheus-stack.namespace" . }}
